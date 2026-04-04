@@ -61,42 +61,50 @@ export class I18nextService<T extends { key: string }> implements OnModuleInit {
 		return this.currentTranslations[lang];
 	}
 
-	public translate<P extends T['key']>(key: P, options?: TranslateOptions<P, T>): string {
+	public translate<P extends T['key']>(key: P, options: TranslateOptions<P, T>): string {
 		return this.t(key, options);
 	}
 
-	public t<P extends T['key']>(key: P, options?: TranslateOptions<P, T>): string {
-		const lang = options?.lang ?? this.options.fallbackLanguage;
+	public t<P extends T['key']>(key: P, options: TranslateOptions<P, T>): string {
+		const { lang, debug, defaultValue } = options || {};
+		const fallback = this.options.fallbackLanguage;
 
-		const translations = this.currentTranslations[lang] ?? this.options.fallbackLanguage;
+		let result = this.getValueByKey(key, lang ?? fallback);
 
-		if (!translations) {
-			return this.handleMissingKey(key, lang);
-		}
-
-		const keys = key.split('.');
-		let result = translations;
-
-		for (const k of keys) {
-			result = result?.[k];
-			if (result === undefined) break;
+		if (result === undefined && lang && lang !== fallback) {
+			result = this.getValueByKey(key, fallback);
 		}
 
 		if (result === undefined) {
-			return this.handleMissingKey(key, lang);
+			if (defaultValue) return defaultValue;
+
+			return this.handleMissingKey(key, lang ?? fallback);
+		}
+
+		if (debug) {
+			return key;
 		}
 
 		if (typeof result === 'string') {
-			const args = options?.args;
-
-			if (args) {
-				return this.replaceArgs(result, args, lang);
-			}
-
-			return result;
+			const args = (options as any)?.args;
+			return args ? this.replaceArgs(result, args, lang ?? fallback) : result;
 		}
 
 		return String(result);
+	}
+
+	private getValueByKey(key: string, lang: string): any {
+		const translations = this.currentTranslations[lang];
+		if (!translations) return undefined;
+
+		const keys = key.split('.');
+		let current = translations;
+
+		for (const k of keys) {
+			current = current?.[k];
+			if (current === undefined) return undefined;
+		}
+		return current;
 	}
 
 	private replaceArgs(text: string, args: Record<string, any>, lang: string): string {
@@ -107,7 +115,7 @@ export class I18nextService<T extends { key: string }> implements OnModuleInit {
 			const value = args[propName];
 			if (value === undefined) return match;
 
-			// Extract keys
+			// Extract args
 			const ruleRegex = /(=?\w+)\s*{([^}]+)}/g;
 			const rules: Record<string, string> = {};
 			let m;
@@ -115,18 +123,18 @@ export class I18nextService<T extends { key: string }> implements OnModuleInit {
 				rules[m[1]] = m[2];
 			}
 
-			// Select keys (=0, =1)
+			// Select values (=0, =1)
 			if (rules[`=${value}`]) return rules[`=${value}`];
 
 			// Use categories (one, few, many, other)
 			const pluralCategory = new Intl.PluralRules(lang).select(value);
 			const result = rules[pluralCategory] || rules['other'] || '';
 
-			// Use # in plural for value
+			// Use # in plurals for value
 			return result.replace(/#/g, String(value));
 		});
 
-		// 2. Keys {{key}}
+		// 2. Args {{key}} as args.key
 		return processedText.replace(/{{(\w+)}}/g, (match, key) => {
 			return args[key] !== undefined ? String(args[key]) : match;
 		});
