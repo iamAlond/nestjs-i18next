@@ -13,7 +13,7 @@ export class I18nextJsonLoader implements OnModuleInit, OnModuleDestroy {
 	constructor(@Inject(MODULE_OPTIONS_TOKEN) protected readonly options: I18nextModuleOptions) {}
 
 	onModuleInit() {
-		if (this.options.loadingOptions.watch) {
+		if (this.options.loadingOptions.watch && process.env.NODE_ENV !== 'production') {
 			this.startWatcher();
 		}
 	}
@@ -106,6 +106,13 @@ export class I18nextJsonLoader implements OnModuleInit, OnModuleDestroy {
 	}
 
 	private generateTypes(translations: Record<string, any>) {
+		if (process.env.NODE_ENV === 'production') {
+			if (this.options.logging) {
+				this.logger.log('Skipping types generation in production environment');
+			}
+			return;
+		}
+
 		const outputPath = this.options.generatedTypesPath;
 		if (!outputPath) return;
 
