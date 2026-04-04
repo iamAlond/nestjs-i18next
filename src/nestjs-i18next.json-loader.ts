@@ -121,11 +121,6 @@ export type I18nTranslations = ${this.generateUnionType(schema)};
 
 /* prettier-ignore */
 export type I18nPath = I18nTranslations['key'];
-
-/* prettier-ignore */
-export type ExtractArgs<P extends I18nPath> = Extract<I18nTranslations, { key: P }> extends { args: infer A }
-    ? A
-    : never;
 `;
 
 		fs.mkdirSync(path.dirname(outputPath), {
