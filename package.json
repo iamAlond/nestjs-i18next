@@ -52,6 +52,9 @@
 		"locale"
 	],
 	"license": "MIT",
+	"publishConfig": {
+		"access": "public"
+	},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/iamAlond/nestjs-i18next.git"
