@@ -1,11 +1,12 @@
 {
-	"name": "nestjs-open-source-template",
-	"description": "📜 My template for creating NestJS Open Source projects",
-	"version": "1.0.0",
+	"name": "nestjs-i18next",
+	"description": "🌍 i18next module for NestJS",
+	"version": "1.2.0",
 	"scripts": {
 		"build": "rimraf -rf dist && tsc -p tsconfig.build.json",
 		"prepublish:npm": "npm run build",
 		"publish:npm": "release-it",
+		"commit": "cz",
 		"prepublish:dev": "npm run build",
 		"publish:dev": "npm publish --access public --tag dev",
 		"prepare": "husky",
@@ -29,19 +30,38 @@
 	},
 	"main": "./dist/index.js",
 	"types": "./dist/index.d.ts",
-	"keywords": [],
+	"files": [
+		"dist"
+	],
+	"keywords": [
+		"nestjs",
+		"i18n",
+		"i18next",
+		"internationalization",
+		"internationalisation",
+		"internationalize",
+		"internationalise",
+		"international",
+		"internationalize",
+		"locale"
+	],
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/SocketSomeone/nestjs-open-source-template"
+		"url": "https://github.com/iamAlond/nestjs-i18next"
 	},
 	"bugs": {
-		"url": "https://github.com/SocketSomeone/nestjs-open-source-template"
+		"url": "https://github.com/iamAlond/nestjs-i18next"
 	},
-	"author": "Alexey Filippov <socket.someone@gmail.com>",
+	"author": "Matvey iamAlond",
 	"contributors": [
-		"Alexey Filippov <socket.someone@gmail.com>"
+		"Matvey iamAlond"
 	],
+	"config": {
+		"commitizen": {
+			"path": "cz-conventional-changelog"
+		}
+	},
 	"dependencies": {
 		"tslib": "^2.8.1"
 	},
@@ -56,6 +76,8 @@
 		"@release-it/conventional-changelog": "^10.0.6",
 		"@types/jest": "^30.0.0",
 		"@types/node": "25.5.0",
+		"commitizen": "^4.3.1",
+		"cz-conventional-changelog": "^3.3.0",
 		"eslint": "^10.1.0",
 		"eslint-config-prettier": "10.1.8",
 		"eslint-plugin-import": "^2.32.0",
