@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.3.2](https://github.com/iamAlond/nestjs-i18next/compare/1.3.1...1.3.2) (2026-04-04)
+
+### Bug Fixes
+
+* **loader:** skip generation type, start watcher if env production ([b0010dd](https://github.com/iamAlond/nestjs-i18next/commit/b0010ddc88b1bbd3d990b4e32fcb3eb7ee94accf))
+
 ## [1.3.1](https://github.com/iamAlond/nestjs-i18next/compare/1.3.0...1.3.1) (2026-04-04)
 
 ### Bug Fixes
