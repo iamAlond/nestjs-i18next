@@ -7,10 +7,10 @@
 </div>
 
 <p align="center">
-    <a href='https://img.shields.io/npm/v/nestjs-i18next'><img src="https://img.shields.io/npm/v/nestjs-i18next" alt="NPM Version" /></a>
-    <a href='https://img.shields.io/npm/l/nestjs-i18next'><img src="https://img.shields.io/npm/l/nestjs-i18next" alt="NPM License" /></a>
-    <a href='https://img.shields.io/npm/dm/nestjs-i18next'><img src="https://img.shields.io/npm/dm/nestjs-i18next" alt="NPM Downloads" /></a>
-    <a href='https://img.shields.io/github/last-commit/iamalond/nestjs-i18next'><img src="https://img.shields.io/github/last-commit/iamalond/nestjs-i18next" alt="Last commit" /></a>
+    <a href='https://img.shields.io/npm/v/@iamalond/nestjs-i18next'><img src="https://img.shields.io/npm/v/@iamalond/nestjs-i18next" alt="NPM Version" /></a>
+    <a href='https://img.shields.io/npm/l/@iamalond/nestjs-i18next'><img src="https://img.shields.io/npm/l/@iamalond/nestjs-i18next" alt="NPM License" /></a>
+    <a href='https://img.shields.io/npm/dm/@iamalond/nestjs-i18next'><img src="https://img.shields.io/npm/dm/@iamalond/nestjs-i18next" alt="NPM Downloads" /></a>
+    <a href='https://img.shields.io/github/last-commit/iamalond/@iamalond/nestjs-i18next'><img src="https://img.shields.io/github/last-commit/iamalond/@iamalond/nestjs-i18next" alt="Last commit" /></a>
 </p>
 
 ## About the Project
@@ -39,7 +39,7 @@ pnpm add nestjs-i18next
 ## Usage
 
 ```typescript
-import { I18NextModule } from 'nestjs-i18next';
+import { I18NextModule } from '@iamalond/nestjs-i18next';
 
 @Module({
     imports: [
