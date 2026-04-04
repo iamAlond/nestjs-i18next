@@ -10,8 +10,13 @@ export type I18nextModuleOptions = {
 	generatedTypesPath?: string;
 };
 
-export type TranslateOptions<P, T> = {
+type BaseOptions = {
 	lang?: string;
 	defaultValue?: string;
 	debug?: boolean;
-} & (Extract<T, { key: P }> extends { args: infer A } ? { args: A } : { args?: never });
+};
+
+export type TranslateOptions<P, T> =
+	Extract<T, { key: P }> extends { args: infer A }
+		? BaseOptions & { args: A }
+		: BaseOptions | undefined;

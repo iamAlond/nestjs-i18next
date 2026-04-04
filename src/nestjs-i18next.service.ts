@@ -61,12 +61,22 @@ export class I18nextService<T extends { key: string }> implements OnModuleInit {
 		return this.currentTranslations[lang];
 	}
 
-	public translate<P extends T['key']>(key: P, options: TranslateOptions<P, T>): string {
-		return this.t(key, options);
+	public translate<P extends T['key']>(
+		key: P,
+		...params: Extract<T, { key: P }> extends { args: any }
+			? [options: TranslateOptions<P, T>]
+			: [options?: TranslateOptions<P, T>]
+	): string {
+		return this.t(key, ...params);
 	}
 
-	public t<P extends T['key']>(key: P, options: TranslateOptions<P, T>): string {
-		const { lang, debug, defaultValue } = options || {};
+	public t<P extends T['key']>(
+		key: P,
+		...params: Extract<T, { key: P }> extends { args: any }
+			? [options: TranslateOptions<P, T>]
+			: [options?: TranslateOptions<P, T>]
+	): string {
+		const { lang, debug, defaultValue, ...options } = params[0] || {};
 		const fallback = this.options.fallbackLanguage;
 
 		let result = this.getValueByKey(key, lang ?? fallback);
