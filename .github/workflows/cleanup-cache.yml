@@ -16,11 +16,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
-        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Cleanup caches older than 7 days
         if: github.event_name == 'schedule'
-        uses: MyAlbum/purge-cache@881eb5957687193fa612bf74c0042adc78ea5e54 # v2.2.0
+        uses: MyAlbum/purge-cache@951302f4141da79834cd338a6349034a6edebcc2 # v3
 
       # https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows#force-deleting-cache-entries
       - name: Cleanup on PR close
