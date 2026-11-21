@@ -101,7 +101,7 @@
 		"rxjs": "7.8.2",
 		"sort-package-json": "4.1.0",
 		"ts-jest": "^29.4.9",
-		"typescript": "~6.0.3",
+		"typescript": "~7.0.2",
 		"typescript-eslint": "^8.58.0"
 	},
 	"peerDependencies": {
